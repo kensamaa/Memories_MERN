@@ -2,8 +2,12 @@ import express from "express";
 import bodyParser from "body-parser";
 import cors from "cors";
 import mongoose from "mongoose";
+import postRoutes from "./routes/post.js";
 
 const app = express();
+//routes
+app.use("/posts", postRoutes);
+
 app.use(bodyParser.json({ limit: "30mb", extended: true }));
 app.use(bodyParser.urlencoded({ limit: "30mb", extended: true }));
 app.use(cors());
@@ -15,7 +19,6 @@ const DB = mongoose.connection;
 mongoose.connect(connectionString, config).catch((e) => {
   console.error("Connection error", e.message);
 });
-
 DB.on("open", () => console.log("you are connected to mongo"))
   .on("close", () => console.log("you are disconnected to mongo"))
   .on("error", console.error.bind(console, "MongoDB connection error:"));
