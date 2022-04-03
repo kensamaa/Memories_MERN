@@ -5,12 +5,13 @@ import mongoose from "mongoose";
 import postRoutes from "./routes/post.js";
 
 const app = express();
-//routes
-app.use("/posts", postRoutes);
 
 app.use(bodyParser.json({ limit: "30mb", extended: true }));
 app.use(bodyParser.urlencoded({ limit: "30mb", extended: true }));
 app.use(cors());
+
+//routes
+app.use("/posts", postRoutes);
 
 //setup db
 const connectionString = "mongodb://localhost:27017/Memories";
