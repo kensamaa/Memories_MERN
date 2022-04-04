@@ -6,6 +6,7 @@ import { createStore, applyMiddleware, compose } from "redux";
 import reducers from "./reducers";
 import thunk from "redux-thunk";
 import { createRoot } from "react-dom/client";
+import "./index.css";
 const store = createStore(reducers, compose(applyMiddleware(thunk)));
 
 const container = document.getElementById("root");
