@@ -30,6 +30,7 @@ export const updatePost = async (req, res) => {
   const { id } = req.params;
   const { title, message, creator, selectedFile, tags } = req.body;
   LogInfo("request param " + id);
+  //test if id is valid
   if (!mongoose.Types.ObjectId.isValid(id))
     return res.status(404).send(`No post with id: ${id}`);
 
@@ -38,4 +39,19 @@ export const updatePost = async (req, res) => {
   await PostMessage.findByIdAndUpdate(id, updatedPost, { new: true });
   LogInfo("End update Posts");
   res.json(updatedPost);
+};
+export const deletePost = async (req, res) => {
+  LogInfo("Start delete Post");
+
+  try {
+    const { id } = req.params;
+    //test if id is valid
+    if (!mongoose.Types.ObjectId.isValid(id))
+      return res.status(404).send(`No post with id: ${id}`);
+    await PostMessage.findByIdAndRemove(id);
+    LogInfo("End delete Post");
+    res.json({ message: "post deleted success" });
+  } catch (error) {
+    res.status(404).json({ message: error.message });
+  }
 };
