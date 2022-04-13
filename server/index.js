@@ -4,8 +4,10 @@ import cors from "cors";
 import mongoose from "mongoose";
 import postRoutes from "./routes/post.js";
 import { LogInfo, LogError } from "./helpers/logs.js";
+import dotenv from "dotenv";
 LogInfo("server start");
 const app = express();
+dotenv.config();
 
 app.use(bodyParser.json({ limit: "30mb", extended: true }));
 app.use(bodyParser.urlencoded({ limit: "30mb", extended: true }));
@@ -15,7 +17,7 @@ app.use(cors());
 app.use("/posts", postRoutes);
 
 //setup db
-const connectionString = "mongodb://localhost:27017/Memories";
+const connectionString = process.env.CONNECTION_URL;
 const config = { useunifiedtopology: true, useNewUrlParser: true };
 const DB = mongoose.connection;
 mongoose.connect(connectionString, config).catch((e) => {
