@@ -17,7 +17,7 @@ const Input = ({
       <TextField
         name={name}
         variant="outlined"
-        handlechange={handleChange}
+        onChange={handleChange}
         fullWidth
         label={label}
         required
